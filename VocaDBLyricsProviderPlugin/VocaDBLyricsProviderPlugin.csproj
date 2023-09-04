@@ -223,22 +223,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\PreferenceManager\PreferenceManagerLibrary\PreferenceManagerLibrary.csproj">
-      <Project>{9afae5c7-ea51-4c1d-a19d-171fc2c6810d}</Project>
-      <Name>PreferenceManagerLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MultiLyricsTemplateProvider\MultiLyricsProviderInterface\MultiLyricsProviderInterface.csproj">
-      <Project>{100c48d6-b8d5-46c4-a48e-73b83381cd49}</Project>
-      <Name>MultiLyricsProviderInterface</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.en-US.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultiLyricsTemplateProvider\MultiLyricsProviderInterface\MultiLyricsProviderInterface.csproj">
+      <Project>{100c48d6-b8d5-46c4-a48e-73b83381cd49}</Project>
+      <Name>MultiLyricsProviderInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PreferenceManager\PreferenceManagerLibrary\PreferenceManagerLibrary.csproj">
+      <Project>{01b76706-a831-4c68-8d87-ea0b08a8931b}</Project>
+      <Name>PreferenceManagerLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.5\build\Fody.targets')" />
