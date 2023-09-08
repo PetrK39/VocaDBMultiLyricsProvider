@@ -12,7 +12,7 @@ using System.Resources;
 
 namespace VocaDBLyricsProviderPlugin
 {
-    public class VocaDBLyricsProvider : IMultiLyricsProvider
+    public class VocaDBLyricsProvider : LocalisationProviderBase, IMultiLyricsProvider
     {
         public string Name => "VocaDB";
         public PreferenceCollection Preferences
@@ -34,7 +34,7 @@ namespace VocaDBLyricsProviderPlugin
         }
 
         private PreferenceCollection preferences;
-        private RestClient client;
+        private readonly RestClient client;
 
         public VocaDBLyricsProvider()
         {
@@ -50,37 +50,6 @@ namespace VocaDBLyricsProviderPlugin
             var response = await client.GetAsync<VocaDbSongsResponse>(request, token);
 
             return SongsToFoundTracks(response.items);
-        }
-        public string GetResource(string key, CultureInfo culture)
-        {
-            if (!GetAvailableLanguages().Contains(culture))
-                culture = CultureInfo.CreateSpecificCulture("en-US");
-
-            return Properties.Resources.ResourceManager.GetString(key, culture);
-        }
-        private static IEnumerable<CultureInfo> GetAvailableLanguages()
-        {
-            var result = new List<CultureInfo>();
-
-            var rm = new ResourceManager(typeof(Properties.Resources));
-
-            CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
-            foreach (var culture in cultures)
-            {
-                try
-                {
-                    if (culture.Equals(CultureInfo.InvariantCulture)) continue;
-
-                    var rs = rm.GetResourceSet(culture, true, false);
-
-                    if (rs != null) result.Add(culture);
-                }
-                catch (CultureNotFoundException)
-                {
-                    // NOP
-                }
-            }
-            return result;
         }
         private IEnumerable<FoundTrack> SongsToFoundTracks(IEnumerable<VocaDbSong> songs)
         {
